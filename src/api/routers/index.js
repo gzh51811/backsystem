@@ -1,42 +1,74 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-const koaBody = require('koa-body');
+/**
+ * 数据库操作：CRUD
+ * 1. 增
+ * 2. 删
+ * 3. 改
+ * 4. 查
+ */
+const mongodb = require('mongodb');
 
-// 创建路由
-var router = new Router(); 
+const MongoClient = mongodb.MongoClient;
 
-// 引入页面路由
+const database_url = 'mongodb://localhost:27017';
+const database_name = 'backsystem';
 
-const loginRouter = require('./login');
-const userAddRouter = require('./user_add');
-const commonRouter = require('./common');
-const userListRouter = require('./user_list');
-const goodsAddRouter = require('./goods_add');
-router.use(koaBody({
-    // 支持formdata
-    multipart:true,
-
-    // 文件支持
-    formidable:{
-        // 指定保存路径
-        uploadDir:'./uploads',
-        keepExtensions:true,
-        // 改文件名
-        onFileBegin(filename,file){
-            // filename: 上传文件的原始名
-            // file:文件信息对象
-            //   * path:
-
-            // file.path = './uploads/'+filename
-        }
-    }
-}));
+async function connect(){
+    let client = await MongoClient.connect(database_url,{ useNewUrlParser: true });
+    let db = client.db(database_name);
+    return {db,client}
+}
 
 
-router.use('/login',loginRouter.routes());
-router.use('/user_list',userListRouter.routes());
-router.use('/user_add',userAddRouter.routes());
-router.use('/com',commonRouter.routes());
-router.use('/goodsAdd',goodsAddRouter.routes());
+exports.insert = async (colName,data)=>{
 
-module.exports = router;
+    let {db,client} = await connect();
+
+
+    // console.log('client',client)
+    // console.log('db',db)
+    let collection = db.collection(colName);
+    let res = await collection[Array.isArray(data)?'insertMany':'insertOne'](data);
+
+    client.close();
+
+    return res;
+}
+
+exports.delete = async (colName,query)=>{
+
+    let {db,client} = await connect();
+
+    let collection = db.collection(colName);
+    let res = await collection['deleteMany'](query);
+
+    client.close();
+
+    return res;
+}
+
+exports.update = async (colName,query,newData)=>{
+
+    let {db,client} = await connect();
+
+    let collection = db.collection(colName);
+    let res = await collection['updateMany'](query,newData);
+
+    client.close();
+
+    return res;
+}
+
+exports.find = async (colName,query)=>{
+
+    let {db,client} = await connect();
+
+    let collection = db.collection(colName);
+    let res = await collection.find(query).toArray();
+    client.close();
+
+    // 返回查询结果
+    return res;
+}
+
+// insert('user',[{name:'xxx',age:20},{name:'xx2',age:18}]);
+// delete('user',{age:{$lt:18}});

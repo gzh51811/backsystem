@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>goods_list</title>
+		<title>user_list</title>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	    <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -68,6 +68,9 @@
     </div>
   </div>
   
+  
+  
+ 
 </div>
 <script src="../assets/layui/layui.js"></script>
 <script>//JavaScript代码区域
@@ -88,13 +91,17 @@ layui.use('element', function() {
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
               
+          
+<script src="../assets/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 --> 
+ 
 <script>
 layui.use('table', function(){
   var table = layui.table;
   
   table.render({
     elem: '#test'
-    ,url:'../json/user.json'
+    ,url:'../test/table/demo1.json'
     ,toolbar: '#toolbarDemo'
     ,title: '用户数据表'
     ,cols: [[

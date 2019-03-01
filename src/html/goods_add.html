@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>goods_add</title>
+  <title>user_list</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -38,6 +38,11 @@
     }
   </style>
   <script src="../assets/jquery-1.10.1.min.js"></script>
+  <script src="../assets/layui/layui.js" charset="utf-8"></script>
+  <script src="../assets/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/js_goods_add.js" type="text/javascript" charset="utf-8"></script>
+  
 </head>
 
 <body class="layui-layout-body">
@@ -102,7 +107,7 @@
           <div class="layui-input-block">
             <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题"
               class="layui-input layui-input-l good_name">
-            <span class="ml20">50字以内</span>
+            <span class="ml20 name_tip">50字以内</span>
           </div>
         </div>
         <div class="layui-form-item">
@@ -110,20 +115,21 @@
           <div class="layui-input-block">
             <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入"
               class="layui-input layui-input-l good_title">
-            <span class="ml20">100字以内</span>
+            <span class="ml20 title_tip">100字以内</span>
           </div>
         </div>
         <div class="layui-inline">
           <label class="layui-form-label">商品价格</label>
           <div class="layui-input-inline">
-            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"
-              class="layui-input good_price">
+            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"class="layui-input good_price">
+               <span class="ml20 price_tip" style="display:inline-block;margin-top: 10px;">输入正确的商品价格</span>
           </div>
         </div>
         <div class="layui-inline">
           <label class="layui-form-label">销售价格</label>
           <div class="layui-input-inline">
             <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input good_sellprice">
+               <span class="ml20 sellprice_tip" style="display:inline-block;margin-top: 10px;">输入正确的销售价格</span>
           </div>
         </div>
         <div class="layui-form-item">
@@ -131,12 +137,12 @@
           <div class="layui-input-block mt20">
             <select name="interest" lay-filter="aihao" class="good_cate">
               <option value="" placeholder="请输入"></option>
-              <option value="0">手机</option>
-              <option value="1">电脑</option>
-              <option value="2">平板</option>
-              <option value="3">配件</option>
-              <option value="4">办公用品</option>
-              <option value="5">其他</option>
+              <option value="手机">手机</option>
+              <option value="电脑">电脑</option>
+              <option value="平板">平板</option>
+              <option value="配件">配件</option>
+              <option value="办公用品">办公用品</option>
+              <option value="其他">其他</option>
             </select>
           </div>
         </div>
@@ -144,7 +150,7 @@
           <label class="layui-form-label">商品图片</label>
           <div class="layui-upload">
             <a class="layui-btn" id="btnSend">上传图片</a>
-            <input type="file" class="form-control-file form-control" multiple id="img_file">
+            <input type="file" class="form-control-file form-control" multiple id="goods">
             <div class="layui-upload-list" id="img_list">
               <!-- <img class="layui-upload-img" id="demo1">
                       <img class="layui-upload-img" id="demo1">
@@ -159,6 +165,7 @@
           <label class="layui-form-label">库存</label>
           <div class="layui-input-inline">
             <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input good_kucun">
+            <span class="kucun_tip ml20">输入正确的库存格式</span>
           </div>
         </div>
         <div class="layui-form-item mt20">
@@ -198,90 +205,7 @@
     </div>
 
   </div>
-  <script src="../assets/layui/layui.js"></script>
-  <script>
-    layui.use('element', function () {
-      var element = layui.element;
-    });
-    layui.use(['form', 'layedit', 'laydate'], function () {
-    });
-    (() => {
-      // 选择文件并显示预览图
-      function handleFileSelect(evt) {
-        var img_list = document.getElementById('img_list');
-        img_list.innerHTML = '';
-        var files = evt.target.files; // FileList object
 
-        // Loop through the FileList and render image files as thumbnails.
-        for (var i = 0, f; f = files[i]; i++) {
-
-          // Only process image files.
-          if (!f.type.match('image.*')) {
-            continue;
-          }
-
-          var reader = new FileReader();
-          // Closure to capture the file information.
-          reader.onload = (function (theFile) {
-            return function (e) {
-              // Render thumbnail.
-              var span = document.createElement('span');
-              span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                '" title="', escape(theFile.name), '"/>'].join('');
-              img_list.appendChild(span, null);
-            };
-          })(f);
-          // Read in the image file as a data URL.
-          reader.readAsDataURL(f);
-        }
-      }
-      document.getElementById('img_file').addEventListener('change', handleFileSelect, false);
-
-      // 上传图片
-      let img_file = document.querySelector('#img_file');
-      // let btn = document.querySelector('.btnSend');
-      // let username = document.querySelector('#username');
-      $('#btnSend').click(function () {
-                let data = new FormData();
-                for(let i=0;i<img_file.files.length;i++){
-                    data.append('goods',img_file.files[i]);
-                }
-                let xhr = new XMLHttpRequest();
-                xhr.open('post','/goodsAdd',true);
-                xhr.onload=function(){
-                	console.log(xhr.responseText);
-                };
-                xhr.send(data);
-      })
-
-      $('#layui-btn').click(function () {
-        let good_name = $('.good_name').val();
-        let good_title = $('.good_title').val();
-        let good_price = $('.good_price').val();
-        let good_sellprice = $('.good_sellprice').val();
-        let good_cate = $('.good_cate').val();
-        let good_kucun = $('.good_kucun').val();
-        var attr_arr = [];
-        var sell_on;
-        for (let i = 0; i < $('.good_attr input').length; i++) {
-          if ($('.good_attr input').eq(i).prop('checked')) {
-            attr_arr.push($('.good_attr input').eq(i).attr('title'));
-          }
-        }
-        if ($('.good_onsell').prop('checked')) {
-          sell_on = 'yes';
-        } else {
-          sell_on = 'no';
-        }
-        // console.log($('.good_attr').find('input').prop('checked'));
-        // if($('.good_attr').find(input).)
-        console.log(good_name, good_title, good_price, good_sellprice, good_cate, good_kucun, attr_arr, sell_on);
-        // let good_kucun = $('.good_kucun').val();
-        // let good_onsell = $('.good_onsell').val();
-      })
-    })()
-
-  </script>
 </body>
 
 </html>
