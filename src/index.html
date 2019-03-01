@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<!-- <link href="static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" /> -->
+<link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>后台登录 </title>
+<script src="../assets/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src='assets/jquery.cookie.js'></script>
+<script src="js/common.js"></script>
+</head>
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div id="base">
+    <div class="loginWraper">
+        <div id="loginform" class="loginBox">
+            <div class="login_t">
+                <img src="img/login_t.png" alt="">
+                <span>后台管理系统</span>
+            </div>
+            <div class="form form-horizontal">
+                <div class="row cl">
+                    <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                    <div class="formControls col-xs-8">
+                        <input id="username" name="" type="text" placeholder="用户名" class="input-text size-L">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                    <div class="formControls col-xs-8">
+                        <input id="password" name="" type="password" placeholder="密码" class="input-text size-L">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="formControls col-xs-8 col-xs-offset-3">
+                        <input id='yzm' class="input-text size-L" type="text" placeholder="验证码" style="width:150px;">
+                        <span id="suijima"></span>
+                    </div>
+                    <div class="row cl">
+                        <div class="formControls col-xs-8 col-xs-offset-3" id="login_status">
+                            <label for="online">
+                                <input type="checkbox" name="online" id="online" value="">
+                                使我保持登录状态</label>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <div class="formControls col-xs-8 col-xs-offset-3">
+                            <input name="" type="button" id="denglu" class="btn btn-success radius size-L"
+                                value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                            <input name="" type="reset" id='quxiao' class="btn btn-default radius size-L"
+                                value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$('#suijima').html(randomCode());
+	$('#suijima').click(function(){
+		$('#suijima').html(randomCode());
+	});
+	var istrue=false;
+	$('#yzm').change(function(){
+		if($(this).val().toLowerCase()==$('#suijima').html().toLowerCase()){
+			istrue=true;
+		}else{
+			istrue=false;
+			alert('验证码有误');
+		}
+	});
+	if($.cookie('username')){
+	     location.href = 'html/main.html';	
+	}
+
+	$('#denglu').click(e=>{
+            let _username = $('#username').val();
+            let _password = $('#password').val();
+            let _mdl = $('#online').prop('checked');
+			if(_username&&_password&&($('#yzm').val())){
+				let xhr = new XMLHttpRequest();
+	            xhr.onload = ()=>{
+	                if(xhr.status == 200){
+	                    let res = JSON.parse(xhr.responseText);
+	                    if((res.code==200)&&istrue){
+
+							$.cookie("username",_username, { expires: 7 ,path:'/'})
+	                        location.href = 'html/main.html';
+	                    }else{
+	                    	alert('请重新校对信息');
+	                    }
+	                }
+	            }
+	            xhr.open('post','/login',true);
+	            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	            let data = `username=${_username}&password=${_password}&mdl=${_mdl}`
+	            xhr.send(data);
+	            e.preventDefault();
+			}else{
+				alert("各项都不能为空");
+			}
+            // 发起ajax请求
+            
+        }); 
+	
+});
+     
+    </script>
+</body>
+</html>

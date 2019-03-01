@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>user_list</title>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	    <meta name="apple-mobile-web-app-capable" content="yes"/>
+	    <link rel="stylesheet" type="text/css" href="../assets/layui/css/layui.css"/>
+        <style>
+            .layui-table-view {
+                margin: 50px 0 0 200px;
+            }
+            .layui-table-tool-self{
+            	display:none;
+            }
+        </style>
+		<script src="../assets/jquery-1.10.1.min.js"></script>
+		 <script type="text/javascript" src='../assets/jquery.cookie.js'></script>
+		<script src="../js/common.js"></script>
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">后台管理系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item">首页&nbsp;/&nbsp;用户管理&nbsp;/&nbsp;用户列表</li>
+      
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <span id='name'></span>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+          <a href="javascript:;">商品管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="goods_list.html">商品列表</a></dd>
+            <dd><a href="goods_cate.html">商品分类</a></dd>
+            <dd><a href="goods_add.html">添加商品</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">用户管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="user_list.html">用户列表</a></dd>
+            <dd><a href="user_add.html">添加用户</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">订单列表</a></dd>
+  
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+</div>
+<script src="../assets/layui/layui.js"></script>
+<script>//JavaScript代码区域
+layui.use('element', function() {
+	var element = layui.element;
+});</script>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+ 
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm"><i class="layui-icon"></i>添加</button>
+	<button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i>删除</button>
+  </div>
+</script>
+ 
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+              
+<script type="text/javascript" src="../js/js_user_list.js"></script>
+	</body>
+</html>

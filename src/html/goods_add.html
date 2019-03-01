@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>goods_add</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" type="text/css" href="../assets/layui/css/layui.css" />
+  <style>
+    .mt20 {
+      margin-top: 20px;
+    }
+
+    .layui-body {
+      padding: 50px 0 0 50px;
+    }
+
+    .layui-input-l {
+      width: 500px;
+      display: inline-block;
+    }
+
+    .ml20 {
+      margin-left: 20px;
+      color: #bbb;
+    }
+
+    .layui-upload-list img {
+      width: 92px;
+      height: 92px;
+      margin: 0 10px 10px 0;
+    }
+
+    .layui-upload-list {
+      margin: 10px 0px 0 110px;
+    }
+  </style>
+  <script src="../assets/jquery-1.10.1.min.js"></script>
+</head>
+
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo">后台管理系统</div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item">首页&nbsp;/&nbsp;商品管理&nbsp;/&nbsp;添加商品</li>
+
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+            贤心
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="">基本资料</a></dd>
+            <dd><a href="">安全设置</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">退了</a></li>
+      </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <li class="layui-nav-item">
+            <a href="javascript:;">商品管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="goods_list.html">商品列表</a></dd>
+              <dd><a href="goods_cate.html">商品分类</a></dd>
+              <dd><a href="goods_add.html">添加商品</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">用户管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="user_list.html">用户列表</a></dd>
+              <dd><a href="javascript:;">添加用户</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">订单管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">订单列表</a></dd>
+
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layui-body">
+      <!-- 内容主体区域 -->
+      <form class="layui-form" action="">
+        <div class="layui-form-item">
+          <label class="layui-form-label">商品名称</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+              class="layui-input layui-input-l good_name">
+            <span class="ml20">50字以内</span>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">商品副标题</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入"
+              class="layui-input layui-input-l good_title">
+            <span class="ml20">100字以内</span>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">商品价格</label>
+          <div class="layui-input-inline">
+            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"
+              class="layui-input good_price">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">销售价格</label>
+          <div class="layui-input-inline">
+            <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input good_sellprice">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">商品分类</label>
+          <div class="layui-input-block mt20">
+            <select name="interest" lay-filter="aihao" class="good_cate">
+              <option value="" placeholder="请输入"></option>
+              <option value="0">手机</option>
+              <option value="1">电脑</option>
+              <option value="2">平板</option>
+              <option value="3">配件</option>
+              <option value="4">办公用品</option>
+              <option value="5">其他</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">商品图片</label>
+          <div class="layui-upload">
+            <a class="layui-btn" id="btnSend">上传图片</a>
+            <input type="file" class="form-control-file form-control" multiple id="img_file">
+            <div class="layui-upload-list" id="img_list">
+              <!-- <img class="layui-upload-img" id="demo1">
+                      <img class="layui-upload-img" id="demo1">
+                      <img class="layui-upload-img" id="demo1">
+                      <img class="layui-upload-img" id="demo1">
+                      <p id="demoText"></p> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-inline">
+          <label class="layui-form-label">库存</label>
+          <div class="layui-input-inline">
+            <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input good_kucun">
+          </div>
+        </div>
+        <div class="layui-form-item mt20">
+          <label class="layui-form-label">商品属性</label>
+          <div class="layui-input-block good_attr">
+            <input type="checkbox" name="like[write]" title="热卖">
+            <div class="layui-unselect layui-form-checkbox layui-form-checked"><span>热卖</span><i
+                class="layui-icon layui-icon-ok"></i></div>
+            <input type="checkbox" name="like[read]" title="推荐">
+            <div class="layui-unselect layui-form-checkbox"><span>推荐</span><i class="layui-icon layui-icon-ok"></i>
+            </div>
+            <input type="checkbox" name="like[game]" title="促销">
+            <div class="layui-unselect layui-form-checkbox layui-form-checked"><span>促销</span><i
+                class="layui-icon layui-icon-ok"></i></div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">上架</label>
+          <div class="layui-input-block">
+            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF"
+              class="good_onsell">
+          </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">商品描述</label>
+          <div class="layui-input-block">
+            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <a class="layui-btn" id="layui-btn" lay-filter="demo1">确认</a>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+  <script src="../assets/layui/layui.js"></script>
+  <script>
+    layui.use('element', function () {
+      var element = layui.element;
+    });
+    layui.use(['form', 'layedit', 'laydate'], function () {
+    });
+    (() => {
+      // 选择文件并显示预览图
+      function handleFileSelect(evt) {
+        var img_list = document.getElementById('img_list');
+        img_list.innerHTML = '';
+        var files = evt.target.files; // FileList object
+
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+
+          // Only process image files.
+          if (!f.type.match('image.*')) {
+            continue;
+          }
+
+          var reader = new FileReader();
+          // Closure to capture the file information.
+          reader.onload = (function (theFile) {
+            return function (e) {
+              // Render thumbnail.
+              var span = document.createElement('span');
+              span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                '" title="', escape(theFile.name), '"/>'].join('');
+              img_list.appendChild(span, null);
+            };
+          })(f);
+          // Read in the image file as a data URL.
+          reader.readAsDataURL(f);
+        }
+      }
+      document.getElementById('img_file').addEventListener('change', handleFileSelect, false);
+
+      // 上传图片
+      let img_file = document.querySelector('#img_file');
+      // let btn = document.querySelector('.btnSend');
+      // let username = document.querySelector('#username');
+      $('#btnSend').click(function () {
+                let data = new FormData();
+                for(let i=0;i<img_file.files.length;i++){
+                    data.append('goods',img_file.files[i]);
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.open('post','/goodsAdd',true);
+                xhr.onload=function(){
+                	console.log(xhr.responseText);
+                };
+                xhr.send(data);
+      })
+
+      $('#layui-btn').click(function () {
+        let good_name = $('.good_name').val();
+        let good_title = $('.good_title').val();
+        let good_price = $('.good_price').val();
+        let good_sellprice = $('.good_sellprice').val();
+        let good_cate = $('.good_cate').val();
+        let good_kucun = $('.good_kucun').val();
+        var attr_arr = [];
+        var sell_on;
+        for (let i = 0; i < $('.good_attr input').length; i++) {
+          if ($('.good_attr input').eq(i).prop('checked')) {
+            attr_arr.push($('.good_attr input').eq(i).attr('title'));
+          }
+        }
+        if ($('.good_onsell').prop('checked')) {
+          sell_on = 'yes';
+        } else {
+          sell_on = 'no';
+        }
+        // console.log($('.good_attr').find('input').prop('checked'));
+        // if($('.good_attr').find(input).)
+        console.log(good_name, good_title, good_price, good_sellprice, good_cate, good_kucun, attr_arr, sell_on);
+        // let good_kucun = $('.good_kucun').val();
+        // let good_onsell = $('.good_onsell').val();
+      })
+    })()
+
+  </script>
+</body>
+
+</html>
