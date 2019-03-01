@@ -869,7 +869,7 @@ $(function(){
 					}else if(now[0].admin=='small'){
 
 						$('#name').html('普通管理员--'+now[0].nickname);				
-					}else{
+					}else if(now[0].admin=='no'){
 
 						$('#name').html(now[0].nickname);
 						
