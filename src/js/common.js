@@ -211,7 +211,6 @@ function randomCode() {
   参数：
    * str 传字符串进来
    * 返回值： 过滤好的字符串
-
  */
 function filterTex(str) {
 	//只要是直接可以发布留言不需要审核的内容，都应该过滤敏感词
@@ -235,7 +234,6 @@ function filterTex(str) {
 			key1 : 1,
 			Key2 : 2
 		}
-
  */
 
 function strToObj(str) {
@@ -271,7 +269,6 @@ function objToStr(obj){
  	补零函数:toDB(num)
  	参数：num数字
  	返回值：小于10的补零返回
-
  */
 function toDB(num) {
 	//补零操作
@@ -388,7 +385,6 @@ function bind(ele, type, fn) {
  		ele 对象名
  		callback 回调函数
  	返回值： 返回true（向上滚了） 或者false(向下滚了)
-
  */
 function rollerDir(ele, callback) {
 	var istrue = true;
@@ -861,10 +857,9 @@ $(function(){
 				username: name,		
 			},
 			success: function(now) {
-				if(now.length){
-					
+				if(now.length){					
 					if(now[0].admin=='big'){
-
+						
 						$('#name').html('超级管理员--'+now[0].nickname);
 					}else if(now[0].admin=='small'){
 
@@ -874,14 +869,23 @@ $(function(){
 						$('#name').html(now[0].nickname);
 						
 					}
+					$.cookie("admin",now[0].admin, {expires: 7,path:'/'})
+				if(!now[0].admin){
+						$('.layui-side .layui-nav .layui-nav-item').eq(1).find('dd:eq(1)').css('display','none');
+					}else{
+						$('.layui-side .layui-nav .layui-nav-item').eq(1).find('dd:eq(1)').css('display','block');
+						
+					}
 				}
 			}
 		});
+
+	
 	$('#logout').click(function(){
-	$.cookie("username",'', { expires: -1,path:'/'})
-    location.href = '../index.html';
+	location.href = '../index.html';
+	$.cookie("username",'', { expires: -10,path:'/'})
+	$.cookie("admin",'', { expires: -10,path:'/'})
+    
 });
 
 })
-
-

@@ -84,6 +84,7 @@ $(function(){
 			alert('验证码有误');
 		}
 	});
+
 	if($.cookie('username')){
 	     location.href = 'html/main.html';	
 	}
@@ -99,7 +100,7 @@ $(function(){
 	                    let res = JSON.parse(xhr.responseText);
 	                    if((res.code==200)&&istrue){
 
-							$.cookie("username",_username, { expires: 7 ,path:'/'})
+							$.cookie("username",_username, {expires: 7,path:'/'})
 	                        location.href = 'html/main.html';
 	                    }else{
 	                    	alert('请重新校对信息');

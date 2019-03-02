@@ -1,25 +1,18 @@
 
 $(function(){
-		
-//		$.ajax({
-//			type: 'post',
-//			url: '/user_list/init',
-//			success: function(now) {
-//				console.log(now)
-//			}
-//			});
+
 	  layui.use('table', function(){
 	  var table = layui.table;
 	  table.render({
 	    elem: '#test'
-	    ,url:'../json/user.json'
+	    ,url:'/user_list/init'
 	    ,toolbar: '#toolbarDemo'
 	    ,title: '用户数据表'
 	    ,cols: [[
 	      {type: 'checkbox', fixed: 'left'}
-	      ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-	      ,{field:'username', title:'用户名', width:80, edit: 'text'}
-	      ,{field:'gender', title:'性别', width:80, edit: 'text', sort: true}
+	      ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true}
+	      ,{field:'username', title:'用户名', width:80}
+	      ,{field:'gender', title:'性别', width:80, sort: true}
 	      ,{field:'city', title:'城市', width:100}
 	      ,{field:'sign', title:'签名',width:100}
 	      ,{field:'zhiye', title:'职业', width:100}
@@ -33,6 +26,8 @@ $(function(){
 	  
 	  //头工具栏事件
 	  table.on('toolbar(test)', function(obj){
+
+	  	
 	    var checkStatus = table.checkStatus(obj.config.id);
 	    switch(obj.event){
 	      case 'getCheckData':
@@ -52,22 +47,56 @@ $(function(){
 	  //监听行工具事件
 	  table.on('tool(test)', function(obj){
 	    var data = obj.data;
-	    //console.log(obj)
+
 	    if(obj.event === 'del'){
-	      layer.confirm('真的删除行么', function(index){
-	        obj.del();
-	        layer.close(index);
+	    	
+	      layer.confirm('真的删除行么', function(index){	
+			var username=data.username; 
+			var adminlist=data.admin; 
+			var admin=$.cookie('admin')
+			console.log(username);
+
+	        if(admin=='big'){
+	        	if(adminlist=='big'){
+	        		layer.alert('超级管理员不能删除超级管理员');        		
+			
+	        	}else{
+	        		obj.del();
+	        		layer.close(index);
+	        		$.ajax({
+							type: 'get',
+							url: '/user_list/del',
+							data:{
+								username:username
+							},
+							success: function(now) {
+								console.log(now);			
+							}
+						});
+	       			         	
+	        	}
+	        }else if(admin=='small'){
+	        	if(adminlist=='big'||adminlist=='small'){
+	        		layer.alert('管理员不能删除超级管理员和管理员');	
+
+	        	}else{
+	        		$.ajax({
+							type: 'get',
+							url: '/user_list/del',
+							data:{
+								username:username
+							},
+							success: function(now) {
+								console.log(now);			
+							}
+						});
+	        		obj.del();
+	        		layer.close(index);	        		      		
+	        	}
+	        }
 	      });
 	    } else if(obj.event === 'edit'){
-	      layer.prompt({
-	        formType: 2
-	        ,value: data.email
-	      }, function(value, index){
-	        obj.update({
-	          email: value
-	        });
-	        layer.close(index);
-	      });
+	      
 	    }
 	  });
 	});

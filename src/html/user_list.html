@@ -9,10 +9,14 @@
 	    <link rel="stylesheet" type="text/css" href="../assets/layui/css/layui.css"/>
         <style>
             .layui-table-view {
-                margin: 50px 0 0 200px;
+                margin: 0px 0 0 200px;
             }
             .layui-table-tool-self{
             	display:none;
+            }
+            .layui-table-body{
+				height: 396px;
+				overflow: auto;
             }
         </style>
 		<script src="../assets/jquery-1.10.1.min.js"></script>
@@ -39,7 +43,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item" id="logout"><a href="javascript:;">退了</a></li>
     </ul>
   </div>
   

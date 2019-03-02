@@ -13,6 +13,8 @@
             }
         </style>
 		<script src="../assets/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src='../assets/jquery.cookie.js'></script>
+		<script src="../js/common.js"></script>
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
@@ -27,14 +29,14 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          贤心
+          <span id='name'></span>
         </a>
         <dl class="layui-nav-child">
           <dd><a href="">基本资料</a></dd>
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item"id="logout"><a href="javascript:;" >退了</a></li>
     </ul>
   </div>
   
@@ -101,7 +103,7 @@ layui.use('table', function(){
   
   table.render({
     elem: '#test'
-    ,url:'../test/table/demo1.json'
+    ,url:'../json/user.json'
     ,toolbar: '#toolbarDemo'
     ,title: '用户数据表'
     ,cols: [[

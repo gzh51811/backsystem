@@ -171,6 +171,7 @@ $('#email').blur(function(){
 	}
 });
 //点击登录
+var isok=false;
 $('#btn').click(function(){
 
 	if(istrue1&&istrue2&&istrue3&&istrue4&&istrue5&&istrue7&&$('#date').val()){
