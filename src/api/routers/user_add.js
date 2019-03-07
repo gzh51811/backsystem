@@ -12,7 +12,7 @@ var router = new Router();
 router.post('/insert',async (ctx,next)=>{
     // 解构
     let {username,nickname,password,phone,gender,birsthday,email,text} = ctx.request.body;
-	password=md5(password);
+//	password=md5(password);	
     let data = {username,nickname,password,phone,gender,birsthday,email,text,regtime:Date.now()}
     let res = await db.insert('user',data);
 

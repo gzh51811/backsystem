@@ -1,0 +1,79 @@
+
+E:.
+│  index.html   		---登录页
+│  server.js			---静态资源服务器
+│ 			
+│  
+├─api				---接口
+│  ├─db			  
+│  │      index.js		---连接数据库
+│  │      
+│  ├─routers			---路由接口
+│  │      goods_add.js	---添加商品路由
+│  │      goods_list.js	---
+│  │      index.js
+│  │      login.js
+│  │      order_list.js
+│  │      tokenverify.js
+│  │      upload.js
+│  │      user_add.js
+│  │      user_eidt.js
+│  │      user_list.js
+│  │      
+│  └─utils
+│          token.js
+│          
+├─assets
+│  │  jquery-1.10.1.min.js
+│  │  
+│  └─layui
+│
+├─html
+│      goods_add.html
+│      goods_cate.html
+│      goods_list.html
+│      main.html
+│      order_list.html
+│      user_add.html
+│      user_edit.html
+│      user_list.html
+│      
+├─img
+│      login_t.png
+│      yzm.png
+│      
+├─js
+│      common.js
+│      js_goods_add.js
+│      js_goods_list.js
+│      js_user_add.js
+│      js_user_edit.js
+│      js_user_list.js
+│      order_list.js
+│      
+├─json
+│      new.json
+│      user.json
+│      
+├─lib
+│  │  DD_belatedPNG_0.0.8a-min.js
+│  │  html5shiv.js
+│  │  respond.min.js
+│  │  
+│  └─Hui-iconfont
+│      └─1.0.8
+│              demo.html
+│              iconfont.css
+│              iconfont.eot
+│              iconfont.min.css
+│              iconfont.svg
+│              iconfont.ttf
+│              iconfont.woff
+│              
+└─static
+    ├─h-ui
+    │ 
+    │          
+    └─h-ui.admin
+        
+                    

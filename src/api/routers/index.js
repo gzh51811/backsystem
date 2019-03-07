@@ -9,9 +9,12 @@ var router = new Router();
 
 const loginRouter = require('./login');
 const userAddRouter = require('./user_add');
-const commonRouter = require('./common');
+const userEidtRouter = require('./user_eidt');
 const userListRouter = require('./user_list');
 const goodsAddRouter = require('./goods_add');
+const tokenRouter = require('./tokenverify');
+const goodsListRouter = require('./goods_list');
+const orderListRouter = require('./order_list');
 router.use(koaBody({
     // 支持formdata
     multipart:true,
@@ -36,7 +39,11 @@ router.use(koaBody({
 router.use('/login',loginRouter.routes());
 router.use('/user_list',userListRouter.routes());
 router.use('/user_add',userAddRouter.routes());
-router.use('/com',commonRouter.routes());
+router.use('/user_edit',userEidtRouter.routes());
 router.use('/goods_add',goodsAddRouter.routes());
+router.use('/tokenverify',tokenRouter.routes());
+router.use('/goods_list',goodsListRouter.routes());
+router.use('/order_list',orderListRouter.routes());
+
 
 module.exports = router;

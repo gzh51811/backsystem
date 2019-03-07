@@ -20,7 +20,6 @@
 <![endif]-->
 <title>后台登录 </title>
 <script src="../assets/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src='assets/jquery.cookie.js'></script>
 <script src="js/common.js"></script>
 </head>
 <body>
@@ -71,6 +70,29 @@
 </div>
 <script>
 $(function(){
+
+        let user = localStorage.getItem('user');
+
+        if(!user){
+            user = {}
+        }else{
+            user = JSON.parse(user);
+        }
+    // token验证方式
+    if(user.token){
+        // 判断本地是否有token
+        let xhr = new XMLHttpRequest();
+        xhr.onload = ()=>{
+            let res = JSON.parse(xhr.responseText);
+           if(res.status == 200){
+	     		location.href = 'html/main.html';	            
+           }
+        }
+        xhr.open('post','/tokenverify',true);
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xhr.send('token='+user.token)
+    }
+
 	$('#suijima').html(randomCode());
 	$('#suijima').click(function(){
 		$('#suijima').html(randomCode());
@@ -84,10 +106,7 @@ $(function(){
 			alert('验证码有误');
 		}
 	});
-	if($.cookie('username')){
-	     location.href = 'html/main.html';	
-	}
-
+	
 	$('#denglu').click(e=>{
             let _username = $('#username').val();
             let _password = $('#password').val();
@@ -98,8 +117,7 @@ $(function(){
 	                if(xhr.status == 200){
 	                    let res = JSON.parse(xhr.responseText);
 	                    if((res.code==200)&&istrue){
-
-							$.cookie("username",_username, { expires: 7 ,path:'/'})
+                   			 localStorage.setItem('user',xhr.responseText);							
 	                        location.href = 'html/main.html';
 	                    }else{
 	                    	alert('请重新校对信息');

@@ -69,6 +69,15 @@ exports.find = async (colName,query)=>{
     // 返回查询结果
     return res;
 }
+exports.find1 = async (colName,query,limit,page)=>{
+    let {db,client} = await connect();
+    let collection = db.collection(colName);
+    let res = await collection.find(query).limit(limit).skip((page-1)*limit).toArray();
+    client.close();
+
+    // 返回查询结果
+    return res;
+}
 
 // insert('user',[{name:'xxx',age:20},{name:'xx2',age:18}]);
 // delete('user',{age:{$lt:18}});

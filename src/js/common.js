@@ -211,7 +211,6 @@ function randomCode() {
   参数：
    * str 传字符串进来
    * 返回值： 过滤好的字符串
-
  */
 function filterTex(str) {
 	//只要是直接可以发布留言不需要审核的内容，都应该过滤敏感词
@@ -235,7 +234,6 @@ function filterTex(str) {
 			key1 : 1,
 			Key2 : 2
 		}
-
  */
 
 function strToObj(str) {
@@ -271,7 +269,6 @@ function objToStr(obj){
  	补零函数:toDB(num)
  	参数：num数字
  	返回值：小于10的补零返回
-
  */
 function toDB(num) {
 	//补零操作
@@ -388,7 +385,6 @@ function bind(ele, type, fn) {
  		ele 对象名
  		callback 回调函数
  	返回值： 返回true（向上滚了） 或者false(向下滚了)
-
  */
 function rollerDir(ele, callback) {
 	var istrue = true;
@@ -853,35 +849,39 @@ function ajax(method, url, data, fn) {
 
 //公共
 $(function(){
-	let name=$.cookie('username');
-	$.ajax({
-			type: 'get',
-			url: '/com',
-			data: {
-				username: name,		
-			},
-			success: function(now) {
-				if(now.length){
-					
-					if(now[0].admin=='big'){
-
-						$('#name').html('超级管理员--'+now[0].nickname);
-					}else if(now[0].admin=='small'){
-
-						$('#name').html('普通管理员--'+now[0].nickname);				
+    let user = localStorage.getItem('user');
+	 if(!user){
+            user = {}
+        }else{
+            user = JSON.parse(user);
+        }
+       let ele= $('.layui-side .layui-nav .layui-nav-item').eq(1);
+        if(!user.admin){
+						ele.find('dd:eq(0)').css('display','block');
+						ele.find('dd:eq(1)').css('display','none');
+						ele.find('dd:eq(2)').css('display','none');
 					}else{
-
-						$('#name').html(now[0].nickname);
+						ele.find('dd').css('display','block');		
+						ele.find('dd:eq(0)').css('display','none');
 						
 					}
-				}
-			}
-		});
+		if(user.admin=='big'){
+						
+			$('#name').html('超级管理员--'+user.nickname);
+		}else if(user.admin=='small'){
+
+			$('#name').html('普通管理员--'+user.nickname);				
+		}else{
+
+			$('#name').html(user.nickname);
+			
+		}
+
+	  //    退出
 	$('#logout').click(function(){
-	$.cookie("username",'', { expires: -1,path:'/'})
+    localStorage.removeItem('user');
     location.href = '../index.html';
+
 });
 
 })
-
-

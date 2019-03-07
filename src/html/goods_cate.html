@@ -2,13 +2,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>user_list</title>
+		<title>user_cate</title>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	    <meta name="apple-mobile-web-app-capable" content="yes"/>
 	    <link rel="stylesheet" type="text/css" href="../assets/layui/css/layui.css"/>
 
 		<script src="../assets/jquery-1.10.1.min.js"></script>
+		<script src="../js/common.js"></script>
 	</head>
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
@@ -23,14 +24,14 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          贤心
+          <span id='name'></span>
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
+          <dd><a href="user_edit.html">基本资料</a></dd>
+
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item"id="logout"><a href="javascript:;" >退了</a></li>
     </ul>
   </div>
   
@@ -49,14 +50,15 @@
         <li class="layui-nav-item">
           <a href="javascript:;">用户管理</a>
           <dl class="layui-nav-child">
+            <dd><a href="user_edit.html">用户编辑</a></dd>
             <dd><a href="user_list.html">用户列表</a></dd>
-            <dd><a href="javascript:;">添加用户</a></dd>
+            <dd><a href="user_add.html">添加用户</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">订单管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">订单列表</a></dd>
+            <dd><a href="order_list.html">订单列表</a></dd>
   
           </dl>
         </li>

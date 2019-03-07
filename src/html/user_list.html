@@ -9,14 +9,17 @@
 	    <link rel="stylesheet" type="text/css" href="../assets/layui/css/layui.css"/>
         <style>
             .layui-table-view {
-                margin: 50px 0 0 200px;
+                margin: 0px 0 0 200px;
             }
             .layui-table-tool-self{
             	display:none;
             }
+            .layui-table-body{
+				height: 396px;
+				overflow: auto;
+            }
         </style>
 		<script src="../assets/jquery-1.10.1.min.js"></script>
-		 <script type="text/javascript" src='../assets/jquery.cookie.js'></script>
 		<script src="../js/common.js"></script>
 	</head>
 	<body class="layui-layout-body">
@@ -35,11 +38,11 @@
           <span id='name'></span>
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
+          <dd><a href="user_edit.html">基本资料</a></dd>
+
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item" id="logout"><a href="javascript:;">退了</a></li>
     </ul>
   </div>
   
@@ -58,14 +61,15 @@
         <li class="layui-nav-item">
           <a href="javascript:;">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="user_list.html">用户列表</a></dd>
+            <dd><a href="user_edit.html">用户编辑</a></dd>
+            <dd><a href="javascript:;">用户列表</a></dd>
             <dd><a href="user_add.html">添加用户</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">订单管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">订单列表</a></dd>
+            <dd><a href="order_list.html">订单列表</a></dd>
   
           </dl>
         </li>
@@ -83,8 +87,8 @@ layui.use('element', function() {
  
 <script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
-    <button class="layui-btn layui-btn-sm"><i class="layui-icon"></i>添加</button>
-	<button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i>删除</button>
+    <button class="layui-btn layui-btn-sm add" ><i class="layui-icon"></i>添加</button>
+	<button class="layui-btn layui-btn-primary layui-btn-sm del" lay-event="delete"><i class="layui-icon" ></i>删除</button>
   </div>
 </script>
  
